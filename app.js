@@ -36,7 +36,12 @@ app.use((req, res, next) => {
 })
 //详细的错误页面
 app.use((err, req, res, next) => {
-    console.log(req)
-    const youch = new Youch(err, req)
-    youch.toHTML().then(html => res.end(html))
+    let env = req.app.get('env') //获取当前环境变量
+    if (env == 'development') {
+        const youch = new Youch(err, req)
+        return youch.toHTML().then(html => res.end(html))
+    }
+
+    //如果是生产环境 则渲染404、500页面
+    
 })
