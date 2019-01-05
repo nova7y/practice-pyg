@@ -6,6 +6,9 @@
 	height: 550px;
 	background-color: #7e00ff;
 	margin-top: -2px;
+	background-image: url("/uploads/login-poster.png");
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .copyright {
@@ -73,7 +76,6 @@ img {
 .login {
 	overflow: hidden;
 	height: 100%;
-	background-image: url("../img/loginbg.png");
 	background-repeat: no-repeat;
 	background-position: center center;
 }
