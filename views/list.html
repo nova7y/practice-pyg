@@ -1,6 +1,6 @@
 {{ extend './layout/frame.html' }}
 {{block 'css'}}
-<link rel="stylesheet" href="assets/css/page-list.css">
+<link rel="stylesheet" href="/assets/css/page-list.css">
 {{/block}}
 
 
@@ -13,7 +13,24 @@
     <!--bread-->
     <div class="bread">
       <ul class="fl sui-breadcrumb">
-        <li class="active">智能手机</li>
+
+
+        <!--面包屑导航-->
+
+        {{if cate.parent && cate.parent.parent}}
+        <li><a href="/list/{{cate.parent.parent.id}}">{{cate.parent.parent.name}}</a></li>
+        {{/if}}
+
+        {{if cate.parent}}
+        <li><a href="/list/{{cate.parent.id}}">{{cate.parent.name}}</a></li>
+
+        {{/if}}
+
+        <li class="active">{{cate.name}}</li>
+
+
+
+
       </ul>
     </div>
     <!--selector-->
@@ -49,20 +66,37 @@
       <div class="sui-navbar">
         <div class="navbar-inner filter">
           <ul class="sui-nav">
-            <li class="active"><a href="#">综合</a></li>
-            <li><a href="#">销量</a></li>
-            <li><a href="#">新品</a></li>
-            <li><a href="#">评价</a></li>
-            <li><a href="#">价格</a></li>
+
+
+
+            <li class="{{sort=='commend'?'active':''}}"><a href="/list/{{cate.id}}?sort=commend">综合</a></li>
+            <li class="{{sort=='quantity'?'active':''}}"><a href="/list/{{cate.id}}?sort=quantity">销量</a></li>
+            <li class="{{sort=='market_time'?'active':''}}"><a href="/list/{{cate.id}}?sort=market_time">新品</a></li>
+
+            {{if sort=='-price'}}
+            <li class="{{sort=='-price'?'active':''}}"><a href="/list/{{cate.id}}?sort=price">价格 <span class="sui-icon icon-arrow-up"></span></a></li>
+            {{else if sort=='price'}}
+            <li class="{{sort=='price'?'active':''}}"><a href="/list/{{cate.id}}?sort=-price">价格 <span class="sui-icon icon-arrow-down"></span></a></li>
+            {{else}}
+            <li class="{{sort=='-price'?'active':''}}"><a href="/list/{{cate.id}}?sort=price">价格 <span class="sui-icon icon-arrow-down"></span></a></li>
+            {{/if}}
+
+            <!-- <li><a href="#">评价</a></li> -->
+
+
+
           </ul>
         </div>
       </div>
       <div class="goods-list">
         <ul class="yui3-g">
+
+
+          {{each lists}}
           <li class="yui3-u-1-5">
-            <div class="p-img"><a href="item.html"><img src="uploads/mobile.png"></a></div>
-            <div class="price"><strong><em>¥</em><i>6088.00</i></strong></div>
-            <div class="attr"><em>Apple苹果iPhone 6s (A1699)</em></div>
+            <div class="p-img"><a href="item.html"><img src="{{$value.thumbnail}}"></a></div>
+            <div class="price"><strong><i>&yen;{{$value.price}}</i></strong></div>
+            <div class="attr"><em>{{$value.name}}</em></div>
             <div class="commit"><i class="command">已有2000人评价</i></div>
             <div class="operate">
               <a href="cart-add.html" class="sui-btn btn-bordered btn-danger">加入购物车</a>
@@ -70,39 +104,10 @@
               <a href="#" class="sui-btn btn-bordered">关注</a>
             </div>
           </li>
-          <li class="yui3-u-1-5">
-            <div class="p-img"><a href="item.html"><img src="uploads/mobile.png"></a></div>
-            <div class="price"><strong><em>¥</em><i>6088.00</i></strong></div>
-            <div class="attr"><em>Apple苹果iPhone 6s (A1699)</em></div>
-            <div class="commit"><i class="command">已有2000人评价</i></div>
-            <div class="operate">
-              <a href="cart-add.html" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-              <a href="#" class="sui-btn btn-bordered">对比</a>
-              <a href="#" class="sui-btn btn-bordered">关注</a>
-            </div>
-          </li>
-          <li class="yui3-u-1-5">
-            <div class="p-img"><a href="item.html"><img src="uploads/mobile.png"></a></div>
-            <div class="price"><strong><em>¥</em><i>6088.00</i></strong></div>
-            <div class="attr"><em>Apple苹果iPhone 6s (A1699)</em></div>
-            <div class="commit"><i class="command">已有2000人评价</i></div>
-            <div class="operate">
-              <a href="cart-add.html" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-              <a href="#" class="sui-btn btn-bordered">对比</a>
-              <a href="#" class="sui-btn btn-bordered">关注</a>
-            </div>
-          </li>
-          <li class="yui3-u-1-5">
-            <div class="p-img"><a href="item.html"><img src="uploads/mobile.png"></a></div>
-            <div class="price"><strong><em>¥</em><i>6088.00</i></strong></div>
-            <div class="attr"><em>Apple苹果iPhone 6s (A1699)</em></div>
-            <div class="commit"><i class="command">已有2000人评价</i></div>
-            <div class="operate">
-              <a href="cart-add.html" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-              <a href="#" class="sui-btn btn-bordered">对比</a>
-              <a href="#" class="sui-btn btn-bordered">关注</a>
-            </div>
-          </li>
+          {{/each}}
+
+
+
         </ul>
       </div>
       <div class="sui-pagination pagination-large">
@@ -233,4 +238,5 @@
 
 {{/block}}
 {{block 'js'}}
+
 {{/block}}

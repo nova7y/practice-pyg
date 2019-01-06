@@ -10,6 +10,10 @@ module.exports.getLikeProduct = () => {
 }
 
 //列表页 数据
-module.exports.getCateProducts = () => {
-
+module.exports.getCateProducts = (cateId, page, sort, per_page) => {
+    let url = `/categories/${cateId}/products?page=${page}&sort=${sort}&per_page=${per_page}`
+    // let url = `/products?page=${page}&sort=${sort}&per_page=${per_page}`
+    return axios.get(url)
+        .then(res => res.data)
+        .catch(err => Promise.reject(err))
 }

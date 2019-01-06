@@ -14,7 +14,7 @@ router.get('/like', home.like) //猜你喜欢
 
 
 //列表页
-router.get('/list', list.index)
+router.get('/list/:id', list.index)  //:id 可在路由中通过 req.params.id 获取
 
 //登陆页login.html 展示
 router.get('/login', account.login)
